@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<catalog version="2.1">
+    <book id="1"
+          title="The Divine Comedy"
+          author="Danti Alighieri"
+          date="1265-1321">
+          
+          <edition date="2002-10" language="italian" />
+          <edition date="2003-05" language="english" />
+          
+          <description>
+              An epic poem that describes Dante's travels through Hell, Purgatory, and Heaven
+          </description>
+      </book>
+      
+    <book id="2"
+          title="The Stranger"
+          author="Albert Camus"
+          date="1942">
+          
+          <edition date="2007-04" language="french"  />
+          <edition date="2010-03" language="spanish" />
+          
+          <description>
+            The story of Meursault, an Algerian who seemingly irrationally kills an Arab man whom he recognises in French Algiers.
+          </description>
+      </book>
+</catalog>
+
