@@ -2,7 +2,6 @@ import operator
 import xml.etree.ElementTree as ET
 import itertools
 from collections import Iterable
-import livesh
 ichain = itertools.chain.from_iterable
 
 def isiter(object):
@@ -16,9 +15,6 @@ def fsetattr(obj, key, value):
 
 def imatches(xmlo, key):
     return ichain(e.findall(key) for e in fgetattr(xmlo, 'elems'))
-
-def iall(xmlo):
-    return list(fgetattr(xmlo, 'elems'))
 
 def xml(f):
     return XMLObject(ET.parse(f).getroot())
@@ -49,19 +45,18 @@ class XMLObject(object):
         return XMLObject(imatches(self, key))
 
     def __call__(self, *required, **filters):
-        if not required and not filters:
-            return fgetattr(self, 'elems')
+        elems = fgetattr(self, 'elems')
 
-        return XMLObject(sub for sub in iall(self) \
+        if not required and not filters:
+            return elems if len(elems) > 1 else elems[0]
+
+        return XMLObject(sub for sub in elems \
             if all(sub.get(attr, None) is not None for attr in required)
            and all(sub.attrib.get(k, None) == v  for k, v in filters.iteritems())
         )
 
     def __repr__(self):
         return repr(fgetattr(self, 'elems'))
-
-    def __str__(self):
-        return ', '.join(e.text for e in fgetattr(self, 'elems'))
 
 if __name__ == '__main__':
     print xml('test.xml').module.object(path='login').post.required

@@ -2,8 +2,7 @@
 <catalog version="2.1">
     <book id="1"
           title="The Divine Comedy"
-          author="Danti Alighieri"
-          date="1265-1321">
+          author="Danti Alighieri">
           
           <edition date="2002-10" language="italian" />
           <edition date="2003-05" language="english" />
