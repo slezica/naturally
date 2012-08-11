@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Naturally : as if XML documents were just made of Python" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Naturally</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/slezica/naturally">View on GitHub</a>
+
+          <h1 id="project_title">Naturally</h1>
+          <h2 id="project_tagline">as if XML documents were just made of Python</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/slezica/naturally/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/slezica/naturally/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>Let me show you</h2>
+
+<p>Say we have this rather unoriginal XML document:</p>
+
+<div class="highlight"><pre><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<span class="nt">&lt;catalog</span> <span class="na">version=</span><span class="s">"2.1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">"1"</span>
+          <span class="na">title=</span><span class="s">"The Divine Comedy"</span>
+          <span class="na">author=</span><span class="s">"Danti Alighieri"</span><span class="nt">&gt;</span>
+
+          <span class="nt">&lt;edition</span> <span class="na">date=</span><span class="s">"2002-10"</span> <span class="na">language=</span><span class="s">"italian"</span> <span class="nt">/&gt;</span>
+          <span class="nt">&lt;edition</span> <span class="na">date=</span><span class="s">"2003-05"</span> <span class="na">language=</span><span class="s">"english"</span> <span class="nt">/&gt;</span>
+
+          <span class="nt">&lt;description&gt;</span>
+              An epic poem that describes Dante's travels through Hell, Purgatory, and Heaven
+          <span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;/book&gt;</span>
+
+    <span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">"2"</span>
+          <span class="na">title=</span><span class="s">"The Stranger"</span>
+          <span class="na">author=</span><span class="s">"Albert Camus"</span>
+          <span class="na">date=</span><span class="s">"1942"</span><span class="nt">&gt;</span>
+
+          <span class="nt">&lt;edition</span> <span class="na">date=</span><span class="s">"2007-04"</span> <span class="na">language=</span><span class="s">"french"</span>  <span class="nt">/&gt;</span>
+          <span class="nt">&lt;edition</span> <span class="na">date=</span><span class="s">"2010-03"</span> <span class="na">language=</span><span class="s">"spanish"</span> <span class="nt">/&gt;</span>
+
+          <span class="nt">&lt;description&gt;</span>
+            The story of Meursault, an Algerian who seemingly irrationally kills an Arab man whom he recognises in French Algiers.
+          <span class="nt">&lt;/description&gt;</span>
+      <span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/catalog&gt;</span>
+</pre></div>
+
+<h2>Reading XML</h2>
+
+<p>To tinker with <code>naturally</code>, you can fire the <code>demo.py</code> script.</p>
+
+<pre><code>$ python demo.py
+</code></pre>
+
+<p>This will land you into an interactive shell with the first command already ran for you:</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span> <span class="o">=</span> <span class="n">naturally</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="s">'demo.xml'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></div>
+
+<p>Now, XML documents are <em>naturally</em> represented as python objects acting as both a dictionary of their attributes, and a container for their children. </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="p">[</span><span class="s">'version'</span><span class="p">]</span>
+<span class="s">'2.1'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">'id'</span><span class="p">]</span>
+<span class="s">'1'</span>
+</pre></div>
+
+<p>In JQuery-style, nodes and sequences of nodes are handled in a mostly transparent manner.</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="p">[</span><span class="s">'id'</span><span class="p">]</span>
+<span class="p">[</span><span class="s">'1'</span><span class="p">,</span> <span class="s">'2'</span><span class="p">]</span>
+</pre></div>
+
+<p>Filtering is <em>naturally</em> easy as well. Using the <code>()</code> operator, you can demand presence or specific values of attributes.</p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="p">(</span><span class="s">'date'</span><span class="p">)[</span><span class="s">'title'</span><span class="p">]</span>
+<span class="s">'The Stranger'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s">'1'</span><span class="p">)[</span><span class="s">'author'</span><span class="p">]</span>
+<span class="s">'Danti Alighieri'</span>
+</pre></div>
+
+<p>Since the object's namespace is enterily dedicated to represent the underlying XML document, you can't access some of the data directly. Instead, call the object as if using an empty filter: this will give you the underlying Element nodes, properly represented. </p>
+
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="o">.</span><span class="n">description</span><span class="p">()</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">Element</span> <span class="s">'description'</span> <span class="n">at</span> <span class="mh">0x235e350</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">Element</span> <span class="s">'description'</span> <span class="n">at</span> <span class="mh">0x235e4d0</span><span class="o">&gt;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">catalog</span><span class="o">.</span><span class="n">book</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s">'1'</span><span class="p">)</span><span class="o">.</span><span class="n">description</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="s">"An epic poem that describes Dante's travels through Hell, Purgatory, and Heaven"</span>
+</pre></div>
+
+<p>Feels natural, right?</p>
+
+<h1>Writing XML</h1>
+
+<p>I have not yet implemented XML creation, but I intend to heavily use <a href="http://en.wikipedia.org/wiki/Autovivification">autovivification</a> to make it as dead simple as reading. Stay tuned.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Naturally maintained by <a href="https://github.com/slezica">slezica</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
