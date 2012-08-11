@@ -80,4 +80,4 @@ Since the object's namespace is enterily dedicated to represent the underlying X
 Feels natural, right?
 
 # Writing XML
-I have not yet implemented XML creation, but I intend to use [http://en.wikipedia.org/wiki/Autovivification](autovivification) to make it as dead simple as reading.
+I have not yet implemented XML creation, but I intend to heavily use [autovivification](http://en.wikipedia.org/wiki/Autovivification) to make it as dead simple as reading.
